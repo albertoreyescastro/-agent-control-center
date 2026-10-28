@@ -31,6 +31,7 @@ A public, interactive explanation of a **resilient multi-agent control plane**: 
 https://github.com/user-attachments/assets/92cd801e-81cd-475e-b418-dea7f760fe6b
 
 *Illustrative architecture preview. No live telemetry, credentials, private task content or provider access is exposed. Named workers and models illustrate orchestration roles rather than a live operational inventory.*
+
 [Why I built it](#why-i-built-it) · [Engineering decisions](#engineering-decisions) · [Validation](#validation) · [Run locally](#run-locally) · [Source map](#source-map) · [Limitations](#limitations)
 
 ## See it in action
