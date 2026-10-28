@@ -58,7 +58,7 @@ module.exports=async function(browser,out){
   for(const label of ['Observability philosophy: show decisions, preserve uncertainty','Run the deterministic checks']){
    const summary=article.locator('summary').filter({hasText:label});
    assert.equal(await summary.count(),1,`authored details summary: ${label}`);
-   await summary.focus();await page.keyboard.press('Enter');assert(await summary.evaluate(n=>n.parentElement.open));await page.keyboard.press('Enter');assert(!(await summary.evaluate(n=>n.parentElement.open));
+   await summary.focus();await page.keyboard.press('Enter');assert(await summary.evaluate(n=>n.parentElement.open));await page.keyboard.press('Enter');assert(!(await summary.evaluate(n=>n.parentElement.open)));
   }
   await article.getByRole('link',{name:'ARCHITECTURE ↓',exact:true}).click();
   assert((await page.url()).endsWith('#architecture'));
