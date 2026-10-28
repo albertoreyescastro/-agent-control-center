@@ -97,8 +97,7 @@ if(require.main===module){
   const browser=await chromium.launch({headless:true,...(process.env.QA_CHROME_CHANNEL?{channel:process.env.QA_CHROME_CHANNEL}:{})});
   try{await module.exports(browser,out);}
   catch(error){
-   const base=error.observation||{status:'FAIL',rendering_pass:false,reason:'loaded_readme_assertion_or_browser_infrastructure'};
-   const result={...base,error_name:error&&error.name?String(error.name):'Error',error_message:String(error&&error.message?error.message:error),error_stack:String(error&&error.stack?error.stack:'').slice(0,12000)};
+   const result=error.observation||{status:'FAIL',rendering_pass:false,reason:'loaded_readme_assertion_or_browser_infrastructure'};
    fs.writeFileSync(path.join(out,'observation-status.json'),JSON.stringify(result,null,2));
    if(process.env.GITHUB_STEP_SUMMARY)fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,`\nGitHub README observation: **${result.status}**. Rendering PASS was not established. Inspect the separate check and evidence artifact.\n`);
    throw error;
