@@ -17,9 +17,9 @@ module.exports=async function(browser,out){
   const sources=await article.locator('img').evaluateAll(images=>images.map(i=>i.currentSrc));
   for(const name of ['hero','live-demo','control-plane','trust-boundary'])assert(sources.some(s=>s.endsWith(`/docs/readme/${name}${width<600?'-narrow':''}.svg`)),`responsive ${name}`);
   const videoState=await article.locator('video').evaluateAll(videos=>videos.map(v=>({controls:v.controls,src:v.currentSrc||v.getAttribute('src')||v.querySelector('source')?.src||''})));
-  assert.equal(videoState.length,1,'one XANA video player');
-  assert(videoState[0].controls,'XANA video exposes native controls');
-  assert(/user-attachments|githubusercontent/.test(videoState[0].src),'XANA video uses a GitHub-hosted attachment');
+  assert.equal(videoState.length,1,'one orchestration video player');
+  assert(videoState[0].controls,'orchestration video exposes native controls');
+  assert(/user-attachments|githubusercontent/.test(videoState[0].src),'orchestration video uses a GitHub-hosted attachment');
   const links=await article.locator('a').evaluateAll(nodes=>nodes.map(n=>({href:n.getAttribute('href'),label:n.textContent,anchor:!n.getAttribute('href').startsWith('#')||!!document.getElementById('user-content-'+n.getAttribute('href').slice(1))||!!document.getElementById(n.getAttribute('href').slice(1))})));
   assert(links.every(x=>x.anchor),'internal anchors');
   const demoUrl='https://albertoreyescastro.github.io/agent-control-center/';

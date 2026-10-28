@@ -22,15 +22,15 @@ A public, interactive explanation of a **resilient multi-agent control plane**: 
 
 **SANITIZED / SIMULATED PORTFOLIO DEMO.** Real architectural concepts; authored demo activity. No live telemetry, provider calls or operational access.
 
-<!-- XANA_VIDEO_INTRO -->
+<!-- ORCHESTRATION_WORKFLOW_VIDEO -->
 
-## XANA in 76 seconds
+## Multi-agent orchestration workflow
 
-**Start here.** A visual tour of the orchestration model: durable state, capability-aware routing, fenced local/cloud execution, independent verification, bounded recovery and a final human merge gate.
+**76-second end-to-end walkthrough.** Durable state, capability-aware routing, fenced local/cloud execution, independent verification, bounded remediation and a final human merge gate.
 
-https://github.com/user-attachments/assets/92cd801e-81cd-475e-b418-dea7f760fe6b
+https://github.com/user-attachments/assets/fbe1deba-8089-4af7-9ba7-3fdcc4c476be
 
-*Illustrative architecture preview. No live telemetry, credentials, private task content or provider access is exposed. Named workers and models illustrate orchestration roles rather than a live operational inventory.*
+*Illustrative architecture workflow. No live telemetry, credentials, private task content or provider access is exposed. Named workers and models illustrate orchestration roles rather than a live operational inventory.*
 
 [Why I built it](#why-i-built-it) · [Engineering decisions](#engineering-decisions) · [Validation](#validation) · [Run locally](#run-locally) · [Source map](#source-map) · [Limitations](#limitations)
 
