@@ -16,6 +16,10 @@ module.exports=async function(browser,out){
   assert(await article.locator('img').evaluateAll(images=>images.every(i=>!!i.alt.trim())), 'alt text');
   const sources=await article.locator('img').evaluateAll(images=>images.map(i=>i.currentSrc));
   for(const name of ['hero','live-demo','control-plane','trust-boundary'])assert(sources.some(s=>s.endsWith(`/docs/readme/${name}${width<600?'-narrow':''}.svg`)),`responsive ${name}`);
+  const videoState=await article.locator('video').evaluateAll(videos=>videos.map(v=>({controls:v.controls,src:v.currentSrc||v.getAttribute('src')||v.querySelector('source')?.src||''})));
+  assert.equal(videoState.length,1,'one XANA video player');
+  assert(videoState[0].controls,'XANA video exposes native controls');
+  assert(/user-attachments|githubusercontent/.test(videoState[0].src),'XANA video uses a GitHub-hosted attachment');
   const links=await article.locator('a').evaluateAll(nodes=>nodes.map(n=>({href:n.getAttribute('href'),label:n.textContent,anchor:!n.getAttribute('href').startsWith('#')||!!document.getElementById('user-content-'+n.getAttribute('href').slice(1))||!!document.getElementById(n.getAttribute('href').slice(1))})));
   assert(links.every(x=>x.anchor),'internal anchors');
   const demoUrl='https://albertoreyescastro.github.io/agent-control-center/';
@@ -51,8 +55,11 @@ module.exports=async function(browser,out){
   assert(tileTargets.every(h=>h===demoUrl),'all three screenshot tiles click through');
   const galleryShot=await page.screenshot({path:path.join(out,`readme-gallery-${width}-${colorScheme}.jpg`),type:'jpeg',quality:85});
   console.log(`README_GALLERY_${width}_${colorScheme}_BEGIN`);console.log(galleryShot.toString('base64'));console.log(`README_GALLERY_${width}_${colorScheme}_END`);
-  assert.equal(await article.locator('details').count(),2);
-  for(const summary of await article.locator('summary').all()){await summary.focus();await page.keyboard.press('Enter');assert(await summary.evaluate(n=>n.parentElement.open));await page.keyboard.press('Enter');assert(!(await summary.evaluate(n=>n.parentElement.open)));}
+  for(const label of ['Observability philosophy: show decisions, preserve uncertainty','Run the deterministic checks']){
+   const summary=article.locator('summary').filter({hasText:label});
+   assert.equal(await summary.count(),1,`authored details summary: ${label}`);
+   await summary.focus();await page.keyboard.press('Enter');assert(await summary.evaluate(n=>n.parentElement.open));await page.keyboard.press('Enter');assert(!(await summary.evaluate(n=>n.parentElement.open));
+  }
   await article.getByRole('link',{name:'ARCHITECTURE ↓',exact:true}).click();
   assert((await page.url()).endsWith('#architecture'));
   await page.goto(url+'#engineering-the-space-between-agents',{waitUntil:'domcontentloaded'});
@@ -69,7 +76,7 @@ module.exports=async function(browser,out){
   console.log(`README_IMAGE_${width}_${colorScheme}_BEGIN`);console.log(shot.toString('base64'));console.log(`README_IMAGE_${width}_${colorScheme}_END`);
   await banner.locator('xpath=ancestor::a').press('Enter');await page.waitForURL(demoUrl,{timeout:30000});
   assert.equal(await page.locator('#lab').count(),1,'keyboard CTA opens the canonical interactive demo');
-  results.push({width,colorScheme,theme,head,images:'PASS',gallery_dimensions:dimensions,cta_prominence:'PASS',hero_alignment:'PASS',cta_text_clipping:'PASS',plain_arrow:'PASS',cta_keyboard_navigation:'PASS',tile_links:'PASS',alt_text:'PASS',responsive_sources:'PASS',anchors:'PASS',details_keyboard:'PASS',tables:'PASS',overflow});
+  results.push({width,colorScheme,theme,head,images:'PASS',video_player:'PASS',gallery_dimensions:dimensions,cta_prominence:'PASS',hero_alignment:'PASS',cta_text_clipping:'PASS',plain_arrow:'PASS',cta_keyboard_navigation:'PASS',tile_links:'PASS',alt_text:'PASS',responsive_sources:'PASS',anchors:'PASS',details_keyboard:'PASS',tables:'PASS',overflow});
   await context.close();
  }
  const demoContext=await browser.newContext();const demoPage=await demoContext.newPage();
