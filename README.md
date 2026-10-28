@@ -28,7 +28,7 @@ A public, interactive explanation of a **resilient multi-agent control plane**: 
 
 **76-second end-to-end walkthrough.** Durable state, capability-aware routing, fenced local/cloud execution, independent verification, bounded remediation and a final human merge gate.
 
-https://github.com/user-attachments/assets/92cd801e-81cd-475e-b418-dea7f760fe6b
+https://github.com/user-attachments/assets/fbe1deba-8089-4af7-9ba7-3fdcc4c476be
 
 *Illustrative architecture workflow. No live telemetry, credentials, private task content or provider access is exposed. Named workers and models illustrate orchestration roles rather than a live operational inventory.*
 
